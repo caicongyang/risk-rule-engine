@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/comon/comon.iml" filepath="$PROJECT_DIR$/comon/comon.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/risk-rule-engine.iml" filepath="$PROJECT_DIR$/.idea/risk-rule-engine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/risk-rule-engine-common/risk-rule-engine-common.iml" filepath="$PROJECT_DIR$/risk-rule-engine-common/risk-rule-engine-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/risk-rule-engine-server/risk-rule-engine-server.iml" filepath="$PROJECT_DIR$/risk-rule-engine-server/risk-rule-engine-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/risk-rule-engine-server/server.iml" filepath="$PROJECT_DIR$/risk-rule-engine-server/server.iml" />
     </modules>
   </component>
 </project>
