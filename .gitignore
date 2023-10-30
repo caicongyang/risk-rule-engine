@@ -24,6 +24,7 @@ hs_err_pid*
 replay_pid*
 
 server/target
+server/.mvn
 api/target
 comon/target
 .idea
