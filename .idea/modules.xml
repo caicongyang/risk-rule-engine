@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/risk-rule-engine.iml" filepath="$PROJECT_DIR$/.idea/risk-rule-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/risk-rule-engine-common/risk-rule-engine-common.iml" filepath="$PROJECT_DIR$/risk-rule-engine-common/risk-rule-engine-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/risk-rule-engine-server/risk-rule-engine-server.iml" filepath="$PROJECT_DIR$/risk-rule-engine-server/risk-rule-engine-server.iml" />
+    </modules>
+  </component>
+</project>
