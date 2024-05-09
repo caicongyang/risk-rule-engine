@@ -1,5 +1,6 @@
 package com.caicongyang.risk.rule.engine.server.script;
 
+import com.caicongyang.risk.rule.engine.server.utils.MD5Utils;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 import groovy.lang.GroovyShell;
@@ -9,6 +10,7 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -45,17 +47,14 @@ public class GrovvyExecutor implements IScriptExecutor {
     }
 
 
-    public Object invoke(String scriptId) {
-
+    public Object invoke(String script, String function, Object... objects) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        String scriptId = MD5Utils.md5Hex(script);
         GroovyObject scriptInstance = groovyMap.get(scriptId);
-
         if (scriptInstance == null) {
             lock.lock();
             try {
                 scriptInstance = groovyMap.get(scriptId);
-
                 if (scriptInstance == null) {
-
                     GroovyClassLoader loader = new GroovyClassLoader();
                     Class scriptClass = loader.parseClass(script);
                     scriptInstance = (GroovyObject) scriptClass.getDeclaredConstructor().newInstance();
@@ -65,26 +64,34 @@ public class GrovvyExecutor implements IScriptExecutor {
                 lock.unlock();
             }
         }
-
-        Object result = scriptInstance.invokeMethod("match", new Object[]{map});
+        Object result = scriptInstance.invokeMethod(function, objects);
         return result;
     }
 
 
-    private static void invokeWithGroovyClassLoader(String scriptText, String function, Object... objects) throws Exception {
+    private static <T> T invokeWithGroovyClassLoader(String scriptText, String function, Object... objects) {
         GroovyClassLoader classLoader = new GroovyClassLoader();
         Class groovyClass = classLoader.parseClass(scriptText);
         try {
             GroovyObject groovyObject = (GroovyObject) groovyClass.newInstance();
-            groovyObject.invokeMethod(function, objects);
+            return (T) groovyObject.invokeMethod(function, objects);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            throw new RuntimeException("执行grovvy失败：", e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            throw new RuntimeException("执行grovvy失败：", e);
         }
     }
 
 
+    /**
+     *  exec by javascript
+     * @param script
+     * @param function
+     * @param objects
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     private static <T> T invokeWithScriptEngine(String script, String function, Object... objects) throws Exception {
         ScriptEngine scriptEngine = scriptEngineFactory.getScriptEngine();
         scriptEngine.eval(script);
@@ -92,6 +99,15 @@ public class GrovvyExecutor implements IScriptExecutor {
     }
 
 
+    /**
+     * exec by grovvy shell
+     * @param scriptText
+     * @param function
+     * @param objects
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     private static <T> T invokeWithGroovyShell(String scriptText, String function, Object... objects) throws Exception {
         Script script = groovyShell.parse(scriptText);
         return (T) InvokerHelper.invokeMethod(script, function, objects);

@@ -14,7 +14,7 @@ public class GroovyTest2 {
         GroovyClassLoader loader = new GroovyClassLoader();
         Class scriptClass = loader.parseClass(groovy);
         GroovyObject scriptInstance = (GroovyObject)         scriptClass.newInstance();
-        scriptInstance.invokeMethod("call", new Object[]{1, 2})
+        String result = String.valueOf(scriptInstance.invokeMethod("call", new Object[]{1, 2}));
         System.out.println("Groovy result=" + result);
     }
 
