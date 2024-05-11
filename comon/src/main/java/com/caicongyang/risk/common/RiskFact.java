@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class RiskFact implements Serializable {
 
 
+    private String sceneCode;
+
+
     private String userId;
 
     private String mobile;
@@ -44,5 +47,13 @@ public class RiskFact implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getSceneCode() {
+        return sceneCode;
+    }
+
+    public void setSceneCode(String sceneCode) {
+        this.sceneCode = sceneCode;
     }
 }

@@ -11,7 +11,7 @@ import com.caicongyang.risk.rule.engine.server.script.ScriptContext
 class BaseRiskVerifiedAction extends GroovyVerifiedBase {
 
 
-    RiskResult run(RiskFact fact, ScriptContext context) {
+    def RiskResult run(RiskFact fact, ScriptContext context) {
         Map<String, RiskResult> fireRuleMap = context.getFireRuleMap();
 
         if (context.getFireOne()) {

@@ -12,6 +12,7 @@ public class ScriptContext {
      */
     private String sceneCode;
 
+
     /**
      * 是否
      */
@@ -29,7 +30,8 @@ public class ScriptContext {
 
 
     /**
-     * 规则因子编码： 因子的的值
+     * factorValueMap： 规则因子编码： 因子的的值
+     * 执行完因子脚本后，放到次map 中
      */
     private Map<String, Object> factorValueMap;
 
