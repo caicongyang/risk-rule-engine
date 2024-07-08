@@ -33,6 +33,11 @@ public class RiskResult implements Serializable {
         return new RiskResult(CodeEnum.PASS.getCode(), VerifiedCodeEnum.NONEEDVERIFIED.getCode(), VerifiedCodeEnum.NONEEDVERIFIED.getMessage());
     }
 
+
+    public static RiskResult pass(String msg) {
+        return new RiskResult(CodeEnum.PASS.getCode(), VerifiedCodeEnum.NONEEDVERIFIED.getCode(), msg);
+    }
+
     public static RiskResult reject() {
         return new RiskResult(CodeEnum.REJECT.getCode(), VerifiedCodeEnum.NONEEDVERIFIED.getCode(), VerifiedCodeEnum.NONEEDVERIFIED.getMessage());
     }
