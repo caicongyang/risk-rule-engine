@@ -2,8 +2,6 @@ package com.caicongyang.risk.rule.engine.server.script;
 
 import com.caicongyang.risk.common.RiskFact;
 import com.caicongyang.risk.common.RiskResult;
-import com.caicongyang.risk.rule.engine.server.domain.RiskRecord;
-import com.caicongyang.risk.rule.engine.server.utils.JsonUtils;
 
 import java.lang.reflect.InvocationTargetException;
 

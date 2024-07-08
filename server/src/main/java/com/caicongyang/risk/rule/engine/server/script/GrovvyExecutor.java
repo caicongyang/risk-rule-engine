@@ -95,7 +95,7 @@ public class GrovvyExecutor implements IScriptExecutor {
             }
 
 
-            // 2.执行rule grovvy shell
+            // 2.执行rule grovvy shell， 获取所有需要执行的action rule
             //  根据场景从数据库获取规则
 
             List<RiskRuleConfig> list = riskRuleConfigService.list(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, ctx.getSceneCode()));
