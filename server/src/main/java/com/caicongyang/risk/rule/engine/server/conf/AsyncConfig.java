@@ -1,4 +1,4 @@
-package com.caicongyang.risk.rule.engine.conf;
+package com.caicongyang.risk.rule.engine.server.conf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

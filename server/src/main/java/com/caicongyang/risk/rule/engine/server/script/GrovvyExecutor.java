@@ -52,7 +52,7 @@ public class GrovvyExecutor implements IScriptExecutor {
 
 
     @Autowired
-    private ExecutorService asyncExecutor;
+    private ExecutorService executor;
 
 
     @Autowired
@@ -89,7 +89,7 @@ public class GrovvyExecutor implements IScriptExecutor {
             }
 
             try {
-                asyncExecutor.invokeAll(callables, 3, TimeUnit.SECONDS);
+                executor.invokeAll(callables, 3, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 LOGGER.error("异步获取因子错误：", e);
             }
