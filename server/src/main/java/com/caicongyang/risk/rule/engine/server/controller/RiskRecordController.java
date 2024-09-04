@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.caicongyang.core.basic.Result;
 import com.caicongyang.risk.rule.engine.server.domain.RiskRecord;
 import com.caicongyang.risk.rule.engine.server.service.IRiskRecordService;
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +35,9 @@ public class RiskRecordController {
 
     @ApiOperation(value = "风控请求记录")
     @GetMapping("/list")
-    IPage<RiskRecord> getList(@ApiParam("开始页面") @RequestParam("startPage") Integer startPage,
-                              @ApiParam("页面大小") @RequestParam("pageSize") Integer pageSize,
-                              @ApiParam("请求入参数") @RequestBody RiskRecord record) {
+    Result<IPage<RiskRecord>> getList(@ApiParam("开始页面") @RequestParam("startPage") Integer startPage,
+                                      @ApiParam("页面大小") @RequestParam("pageSize") Integer pageSize,
+                                      @ApiParam("请求入参数") @RequestBody RiskRecord record) {
 
         if (startPage == null) {
             startPage = 1;
@@ -50,7 +51,7 @@ public class RiskRecordController {
         LambdaQueryWrapper<RiskRecord> eq = new LambdaQueryWrapper<RiskRecord>().eq(!Objects.isNull(record.getSceneCode()), RiskRecord::getSceneCode, record.getSceneCode()).eq(Objects.nonNull(record.getRequestCode()), RiskRecord::getRequestCode, record.getRequestCode());
         page = recordService.page(page, eq);
 
-        return page;
+        return Result.ok(page);
     }
 
 }

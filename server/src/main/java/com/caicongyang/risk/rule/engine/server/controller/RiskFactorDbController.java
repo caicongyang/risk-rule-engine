@@ -4,6 +4,7 @@ package com.caicongyang.risk.rule.engine.server.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.caicongyang.core.basic.Result;
 import com.caicongyang.risk.rule.engine.server.domain.RiskFactorDb;
 import com.caicongyang.risk.rule.engine.server.domain.dto.RiskFactorDBQueryDTO;
 import com.caicongyang.risk.rule.engine.server.service.IRiskFactorDbService;
@@ -33,9 +34,9 @@ public class RiskFactorDbController {
 
     @ApiOperation(value = "风控因子列表")
     @GetMapping("/list")
-    IPage<RiskFactorDb> getList(@ApiParam("开始页面") @RequestParam("startPage") Integer startPage,
-                              @ApiParam("页面大小") @RequestParam("pageSize") Integer pageSize,
-                              @ApiParam("请求入参数") @RequestBody RiskFactorDBQueryDTO riskFactorDb) {
+    Result<IPage<RiskFactorDb>> getList(@ApiParam("开始页面") @RequestParam("startPage") Integer startPage,
+                                        @ApiParam("页面大小") @RequestParam("pageSize") Integer pageSize,
+                                        @ApiParam("请求入参数") @RequestBody RiskFactorDBQueryDTO riskFactorDb) {
 
         if (startPage == null) {
             startPage = 1;
@@ -51,6 +52,6 @@ public class RiskFactorDbController {
                 .eq(Objects.nonNull(riskFactorDb.getFactorCode()), RiskFactorDb::getFactorCode, riskFactorDb.getFactorCode());
         page = factorDbService.page(page, eq);
 
-        return page;
+        return Result.ok(page);
     }
 }

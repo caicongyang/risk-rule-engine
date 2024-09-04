@@ -148,5 +148,17 @@ public class ScriptContext {
 
     public void clear() {
 
+        this.sceneCode= null;
+        this.factorCode = null;
+        this.factorMap =null;
+        this.factorValueMap = null;
+
+        this.ruleCode = null;
+        this.ruleMap =null;
+        this.fireRuleMap =null;
+
+        this.actionCode = null;
+        this.actionMap =null;
+
     }
 }

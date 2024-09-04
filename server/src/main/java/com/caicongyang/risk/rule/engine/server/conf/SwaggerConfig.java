@@ -31,6 +31,6 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() throws IOException {
-        return new ApiInfoBuilder().title("springBootDemo").version("0.0.1").build();
+        return new ApiInfoBuilder().title("risk-rule-engine").version("0.0.1").build();
     }
 }

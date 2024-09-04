@@ -21,6 +21,8 @@ public class RiskFact implements Serializable {
     @NotEmpty(message = "ip不能为空")
     private String ip;
 
+    private Boolean fireOne = false;
+
 
     public String getUserId() {
         return userId;
@@ -60,5 +62,13 @@ public class RiskFact implements Serializable {
 
     public void setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
+    }
+
+    public Boolean getFireOne() {
+        return fireOne;
+    }
+
+    public void setFireOne(Boolean fireOne) {
+        this.fireOne = fireOne;
     }
 }
