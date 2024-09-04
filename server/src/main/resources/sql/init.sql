@@ -1,5 +1,5 @@
 CREATE TABLE `risk_factor_db` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '名称',
   `factor_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '因子code',
   `type` tinyint(1) DEFAULT NULL COMMENT '1: 风控因子code\n2. action code',
@@ -14,6 +14,7 @@ CREATE TABLE `risk_factor_db` (
   `create_username` varchar(30) COLLATE utf8mb4_bin DEFAULT '' COMMENT '创建用户名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 
 
 CREATE TABLE `risk_record` (
@@ -35,9 +36,8 @@ CREATE TABLE `risk_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
-
 CREATE TABLE `risk_rule_config` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `scene_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '场景code',
   `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '规则code',
   `factor_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -52,5 +52,21 @@ CREATE TABLE `risk_rule_config` (
   `create_user_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '创建用户编码',
   `update_username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '更新用户名',
   `create_username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '创建用户名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='规则表；为了使模型简单理解：一条规则只有一个表达式';
+
+
+
+CREATE TABLE `risk_scene` (
+  `id` bigint NOT NULL,
+  `scene_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `name` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `descript` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '说明',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '更新用户编码',
+  `create_user_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '创建用户编码',
+  `update_username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '更新用户名',
+  `create_username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '创建用户名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

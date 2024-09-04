@@ -45,9 +45,9 @@ public class RiskRuleConfigController {
 
     @ApiOperation(value = "根据sceneCode查看风控规则")
     @GetMapping("/get-rule-by-sceneCode")
-    Result<List<RiskRuleConfig>> getRuleBySceneCode(@ApiParam(value = "场景code", required = true) @RequestParam("code") String code) {
+    Result<List<RiskRuleConfig>> getRuleBySceneCode(@ApiParam(value = "场景code", required = true) @RequestParam("sceneCode") String sceneCode) {
 
-        List<RiskRuleConfig> list = ruleConfigService.list(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, code));
+        List<RiskRuleConfig> list = ruleConfigService.list(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, sceneCode));
 
         return Result.ok(list);
     }
