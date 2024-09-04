@@ -14,34 +14,34 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author caicongyang
- * @since 2024-05-10
+ * @since 2024-09-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="RiskRuleConfig对象", description="")
-public class RiskRuleConfig implements Serializable {
+@ApiModel(value="RiskFactorDb对象", description="")
+public class RiskFactorDb implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 
-    private String sceneCode;
+    @ApiModelProperty(value = "因子名称")
+    private String name;
 
-    private String code;
-
+    @ApiModelProperty(value = "因子code")
     private String factorCode;
 
-    private String operator;
+    @ApiModelProperty(value = "1: 风控因子code 2. action code")
+    private Boolean type;
 
-    private String factorCodeValue;
+    @ApiModelProperty(value = "脚本")
+    private String script;
 
-    private String actionCode;
+    @ApiModelProperty(value = "1: grovvy 2. js")
+    private Boolean scriptType;
 
-    @ApiModelProperty(value = "是否删除 0-正常 1-已删除")
-    private Integer deleted;
-
-    @ApiModelProperty(value = "是否可用，0-不可用，1-可用")
-    private Integer available;
+    @ApiModelProperty(value = "因子说明")
+    private String descript;
 
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;

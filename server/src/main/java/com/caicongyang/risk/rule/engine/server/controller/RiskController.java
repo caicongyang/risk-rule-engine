@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+/**
+ *
+ */
 @Controller
 @RequestMapping("/v1")
 public class RiskController {
@@ -30,15 +35,20 @@ public class RiskController {
 
     @PostMapping(value = "/risk")
     @ResponseBody
-    public RiskResult risk(@RequestBody RiskFact fact) {
+    public RiskResult risk(@RequestBody @Valid RiskFact fact) {
         ScriptContext ctx = new ScriptContext();
-        //todo 初始化 ctx
+        // 初始化 ctx
+        ctx.setSceneCode(fact.getSceneCode());
+
 
         try {
             return grovvyExecutor.execute(fact, ctx);
         } catch (Exception e) {
             LOGGER.error("风控执行异常:{}", fact.getRequestCode(), e);
             return RiskResult.pass("风控执行异常,默认通过！");
+        }finally {
+
+            ctx.clear();
         }
     }
 

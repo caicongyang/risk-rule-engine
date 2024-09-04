@@ -13,11 +13,12 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * <p>
- * 前端控制器
+ * 风控规则控制器
  * </p>
  *
  * @author caicongyang
@@ -34,11 +35,21 @@ public class RiskRuleConfigController {
 
     @ApiOperation(value = "根据code查看风控规则详情")
     @GetMapping("/get-by-code")
-    Result<RiskRuleConfig> getByCode(@ApiParam("") @RequestParam("code") String code) {
+    Result<RiskRuleConfig> getByCode(@ApiParam(value = "规则code", required = true) @RequestParam("code") String code) {
 
         RiskRuleConfig config = ruleConfigService.getOne(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, code));
 
         return Result.ok(config);
+    }
+
+
+    @ApiOperation(value = "根据sceneCode查看风控规则")
+    @GetMapping("/get-rule-by-sceneCode")
+    Result<List<RiskRuleConfig>> getRuleBySceneCode(@ApiParam(value = "场景code", required = true) @RequestParam("code") String code) {
+
+        List<RiskRuleConfig> list = ruleConfigService.list(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, code));
+
+        return Result.ok(list);
     }
 
 }

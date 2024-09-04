@@ -1,19 +1,24 @@
 package com.caicongyang.risk.common;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class RiskFact implements Serializable {
 
 
+    @NotEmpty(message = "sceneCode不能为空")
     private String sceneCode;
 
-
+    @NotEmpty(message = "userId不能为空")
     private String userId;
 
+    @NotEmpty(message = "mobile不能为空")
     private String mobile;
 
+    @NotEmpty(message = "requestCode不能为空")
     private String requestCode;
 
+    @NotEmpty(message = "ip不能为空")
     private String ip;
 
 

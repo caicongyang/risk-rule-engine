@@ -25,10 +25,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -71,10 +68,10 @@ public class GrovvyExecutor implements IScriptExecutor {
     @Override
     public RiskResult run(RiskFact fact, ScriptContext ctx) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         beforeFlow(fact, ctx);
-
+        RiskResult result = null;
         try {
             // 1.执行factor grovvy
-            //  多线程执行 factory script 脚本
+
             ArrayList<Callable<String>> callables = new ArrayList<>();
             Map<String, String> factorMap = ctx.getFactorMap();
             for (String key : factorMap.keySet()) {
@@ -88,8 +85,9 @@ public class GrovvyExecutor implements IScriptExecutor {
                 });
             }
 
+            //  多线程执行 factory script 脚本
             try {
-                executor.invokeAll(callables, 3, TimeUnit.SECONDS);
+                 executor.invokeAll(callables, 3, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 LOGGER.error("异步获取因子错误：", e);
             }
@@ -97,10 +95,9 @@ public class GrovvyExecutor implements IScriptExecutor {
 
             // 2.执行rule grovvy shell， 获取所有需要执行的action rule
             //  根据场景从数据库获取规则
-
             List<RiskRuleConfig> list = riskRuleConfigService.list(new LambdaQueryWrapper<RiskRuleConfig>().eq(RiskRuleConfig::getCode, ctx.getSceneCode()));
             if (CollectionUtils.isEmpty(list)) {
-                return RiskResult.pass("未配置风控规则，自动通过！");
+                result = RiskResult.pass("未配置风控规则，自动通过！");
             }
             // 规则因子编码： 因子的的值
             Map<String, Object> factorValueMap = ctx.getFactorValueMap();
@@ -141,17 +138,18 @@ public class GrovvyExecutor implements IScriptExecutor {
             } else {
                 //  输出多个校验，按优先级高的进行输出进行校验
                 Optional<RiskResult> first = fireRuleMap.values().stream().sorted(Comparator.comparing(RiskResult::getCode).reversed()).findFirst();
-                return first.get();
+                result = first.get();
             }
         } finally {
-
+            afterFlow(fact, ctx, result);
         }
+        return result;
     }
 
 
     @Override
     public void afterFlow(RiskFact fact, ScriptContext ctx, RiskResult result) {
-        // 异步记录请求参数和风控结果到db
+        // todo 异步记录请求参数和风控结果到db
         RiskRecord record = new RiskRecord();
         record.setRequestCode(fact.getRequestCode());
         record.setSceneCode(fact.getSceneCode());

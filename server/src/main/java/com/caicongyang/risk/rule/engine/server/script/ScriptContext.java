@@ -145,4 +145,8 @@ public class ScriptContext {
     public void setFireRuleMap(Map<String, RiskResult> fireRuleMap) {
         this.fireRuleMap = fireRuleMap;
     }
+
+    public void clear() {
+
+    }
 }

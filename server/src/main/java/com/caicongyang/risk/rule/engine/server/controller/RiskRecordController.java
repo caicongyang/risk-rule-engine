@@ -18,7 +18,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 前端控制器
+ * 风控记录规则控制器
  * </p>
  *
  * @author caicongyang
