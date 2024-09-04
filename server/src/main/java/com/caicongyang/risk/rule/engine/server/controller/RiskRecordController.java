@@ -2,7 +2,6 @@ package com.caicongyang.risk.rule.engine.server.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.caicongyang.core.basic.Result;
@@ -10,9 +9,7 @@ import com.caicongyang.risk.rule.engine.server.domain.RiskRecord;
 import com.caicongyang.risk.rule.engine.server.service.IRiskRecordService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;

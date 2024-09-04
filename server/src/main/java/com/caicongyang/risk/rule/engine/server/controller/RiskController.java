@@ -87,7 +87,7 @@ public class RiskController {
             return Result.ok(grovvyExecutor.execute(fact, ctx));
         } catch (Exception e) {
             LOGGER.error("风控执行异常:{}", fact.getRequestCode(), e);
-            return  Result.ok(RiskResult.pass("风控执行异常,默认通过！"));
+            return Result.ok(RiskResult.pass("风控执行异常,默认通过！"));
         } finally {
             ctx.clear();
         }
